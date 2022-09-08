@@ -7,7 +7,6 @@ export interface INftAsset {
   metadata: string;
   owner: string;
   sn: string;
-  data: INftMetadata;
   transferable: number;
   isComposable: boolean;
   primaryResource: {

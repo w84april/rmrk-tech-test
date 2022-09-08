@@ -1,13 +1,19 @@
 import { Flex, Circle, Box, Image, Badge, useColorModeValue, Text, Icon, chakra, Tooltip, AspectRatio } from '@chakra-ui/react';
-import { INftAsset } from '../types';
+import { INftAsset, INftMetadata } from '../types';
 import { getGatewayUrl } from '../utils';
 import Error from '../assets/error.png';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
-const NftAsset = ({ id, collectionId, data }: INftAsset) => {
+const NftAsset = ({ id, collectionId, metadata }: INftAsset) => {
+  const getMetadata = (): Promise<INftMetadata> => axios.get(getGatewayUrl(metadata)).then(response => response.data);
+  const { isLoading, data } = useQuery(['nftMetadata', id], getMetadata);
+
   return (
     <Flex alignItems="center" justifyContent="center">
       <Box bg={useColorModeValue('white', 'gray.800')} borderWidth="1px" rounded="lg" shadow="lg" position="relative">
-        <Image src={data.mediaUri && getGatewayUrl(data.mediaUri)} fallbackSrc={'../assets/error.png'} alt="nft-logo" roundedTop="lg" />
+        <Image src={data?.mediaUri && getGatewayUrl(data.mediaUri)} fallbackSrc={'../assets/error.png'} alt="nft-logo" roundedTop="lg" />
 
         <Box p="4">
           <Flex mt="1" justifyContent="space-between" alignContent="center">
