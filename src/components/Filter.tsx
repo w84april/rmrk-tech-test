@@ -12,7 +12,7 @@ const Filter = () => {
   useEffect(() => {
     setIsForsaleOnly(storedIsForsaleOnly);
     setNftsPerPage(storedNftsPerPage);
-  }, [isForsaleOnly, storedIsForsaleOnly, storedNftsPerPage]);
+  }, [storedIsForsaleOnly, storedNftsPerPage]);
 
   return (
     <Flex gap="20px">
