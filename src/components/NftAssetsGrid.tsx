@@ -1,5 +1,4 @@
-import { Flex, Circle, Box, Image, Badge, useColorModeValue, Icon, chakra, Tooltip, Grid } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
+import { Grid } from '@chakra-ui/react';
 import { useGetFilteredNfts } from '../hooks/use-get-filtered-nfts';
 import { useFilterStore } from '../store';
 import NftAsset from './NftAsset';

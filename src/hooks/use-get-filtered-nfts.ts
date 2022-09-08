@@ -1,24 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
-import nfts from '../pages/nfts';
+import { useMemo } from 'react';
 import { INftAsset } from '../types';
-import { getGatewayUrl } from '../utils';
-import { useGetNfts } from './use-get-nfts';
 import axios from 'axios';
-
-const getMetadataForAsset = async (initialArray: INftAsset[]) => {
-  return await Promise.all(
-    initialArray.map(nft => {
-      if (!nft.metadata) {
-        return;
-      }
-      return fetch(getGatewayUrl(nft.metadata)).then(async response => {
-        const data = await response.json();
-        return { ...nft, data };
-      });
-    }),
-  );
-};
 
 export const useGetFilteredNfts = (offset: number, itemsPerPage: number, isForsaleOnly: boolean, search?: string): { filteredNfts: INftAsset[]; isLoading: boolean } => {
   const getAssets = (): Promise<INftAsset[]> => axios.get('https://singular.app/api/rmrk2/account/CdA62JpyfEyEASA5XKYJAyYZmdQPqe5X9x8MLnoTWtc9rNn').then(response => response.data);

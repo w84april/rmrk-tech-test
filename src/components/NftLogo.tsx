@@ -1,4 +1,3 @@
-import { getGatewayUrl } from '../utils';
 import { Box, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -23,7 +22,7 @@ export const NftLogo = ({ mediaUri }: NftLogoProps) => {
           objectFit={'cover'}
           maxH="100%"
           w="100%"
-          fallbackSrc="https://via.placeholder.com/150"
+          fallbackSrc="https://via.placeholder.com/300"
         />
       ) : (
         <video width="100%" height="100%" autoPlay loop muted playsInline style={{ borderRadius: '0.5rem 0.5rem 0 0', objectFit: 'cover' }}>
