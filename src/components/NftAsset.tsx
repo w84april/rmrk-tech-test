@@ -4,37 +4,41 @@ import { getGatewayUrl } from '../utils';
 import Error from '../assets/error.png';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { NftLogo } from './NftLogo';
 
-const NftAsset = ({ id, collectionId, metadata }: INftAsset) => {
+const NftAsset = ({ id, sn, metadata }: INftAsset) => {
   const getMetadata = (): Promise<INftMetadata> => axios.get(getGatewayUrl(metadata)).then(response => response.data);
   const { isLoading, data } = useQuery(['nftMetadata', id], getMetadata);
+  const [mediaUri, setMediaUri] = useState('');
+  const [name, setName] = useState('');
 
+  useEffect(() => {
+    if (!data?.mediaUri || !data.name) {
+      return;
+    }
+    setName(data.name);
+    setMediaUri(data?.mediaUri);
+  }, [data?.mediaUri, data?.name]);
+  console.log(getGatewayUrl(mediaUri));
   return (
     <Flex alignItems="center" justifyContent="center">
       <Box bg={useColorModeValue('white', 'gray.800')} borderWidth="1px" rounded="lg" shadow="lg" position="relative">
-        <Image src={data?.mediaUri && getGatewayUrl(data.mediaUri)} fallbackSrc={'../assets/error.png'} alt="nft-logo" roundedTop="lg" />
+        <NftLogo mediaUri={getGatewayUrl(mediaUri)} />
 
         <Box p="4">
           <Flex mt="1" justifyContent="space-between" alignContent="center">
             <Text fontSize="sm" fontWeight="semibold" as="h4" lineHeight="tight" noOfLines={2} maxW={260}>
-              {id}
+              {name}
             </Text>
           </Flex>
 
           <Flex justifyContent="space-between" alignItems="center">
             <Box fontSize="2xl" color={useColorModeValue('gray.800', 'white')}>
               <Text as="span" color={'gray.600'} fontSize="lg" noOfLines={1} maxW={60}>
-                {collectionId}
+                {sn}
               </Text>
             </Box>
-            {/* {true && (
-              <Box fontSize="lg" color={'gray.800'}>
-                <Box as="span" color={'black'} fontSize="sm">
-                  5 шт.
-                </Box>
-              </Box>
-            )} */}
           </Flex>
         </Box>
       </Box>

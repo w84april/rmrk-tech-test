@@ -7,7 +7,7 @@ const NftAssetsGrid = () => {
   const { storedSearch, storedIsForsaleOnly, storedNftsPerPage, updateSearch, updateIsForsaleOnly, updateNftsPerPage } = useFilterStore(state => state);
   const { filteredNfts, isLoading } = useGetFilteredNfts(0, storedNftsPerPage, storedIsForsaleOnly, storedSearch);
   return (
-    <Grid gridTemplateColumns="repeat(auto-fill, minmax(265px, 1fr))" gap={10} mt={4}>
+    <Grid gridTemplateColumns="repeat(auto-fill, minmax(265px, 1fr))" gridTemplateRows="auto 1fr auto" gap={10} mt={4}>
       {filteredNfts.map(nft => (
         <NftAsset key={nft.id} {...nft} />
       ))}

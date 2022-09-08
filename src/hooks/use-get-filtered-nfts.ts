@@ -29,7 +29,6 @@ export const useGetFilteredNfts = (offset: number, itemsPerPage: number, isForsa
     if (!data) {
       return [];
     }
-    console.log(data);
     let initialArray = [...data];
     if (search) {
       initialArray = initialArray.filter(item => {
