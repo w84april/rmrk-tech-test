@@ -10,10 +10,6 @@ const NftAssetsGrid = () => {
   const { storedPage, storedIsForsaleOnly, storedNftsPerPage, updateStoredPage } = useFilterStore(state => state);
   const { paginatedNfts, totalAssets } = useGetPaginatedNfts(storedPage, storedNftsPerPage, storedIsForsaleOnly);
 
-  // useEffect(() => {
-  //   updateStoredPage(0);
-  // }, [storedIsForsaleOnly, storedNftsPerPage, updateStoredPage]);
-
   return (
     <>
       <Grid gridTemplateColumns="repeat(auto-fill, minmax(265px, 1fr))" gap={10} mt={4}>
@@ -23,7 +19,7 @@ const NftAssetsGrid = () => {
       </Grid>
       <Flex justifyContent="center" mt={4}>
         <ReactPaginate
-          pageCount={Math.ceil(totalAssets / storedNftsPerPage) || 0}
+          pageCount={Math.ceil(totalAssets / storedNftsPerPage)}
           pageRangeDisplayed={2}
           marginPagesDisplayed={2}
           forcePage={storedPage}
