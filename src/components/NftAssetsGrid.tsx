@@ -2,18 +2,23 @@ import { Flex, Grid } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { useGetFilteredNfts } from '../hooks/use-get-filtered-nfts';
+import { useGetPaginatedNfts } from '../hooks/use-get-paginated-nfts';
 import { useFilterStore } from '../store';
 import NftAsset from './NftAsset';
+
 const NftAssetsGrid = () => {
   const { storedIsForsaleOnly, storedNftsPerPage } = useFilterStore(state => state);
   const [page, setPage] = useState(0);
-  const { filteredNfts, isLoading, totalAssets } = useGetFilteredNfts(page, storedNftsPerPage, storedIsForsaleOnly);
+  const { paginatedNfts, totalAssets } = useGetPaginatedNfts(page, storedNftsPerPage, storedIsForsaleOnly);
+
+  useEffect(() => {
+    setPage(0);
+  }, [storedIsForsaleOnly, storedNftsPerPage]);
 
   return (
     <>
       <Grid gridTemplateColumns="repeat(auto-fill, minmax(265px, 1fr))" gap={10} mt={4}>
-        {filteredNfts.map(nft => (
+        {paginatedNfts.map(nft => (
           <NftAsset key={nft.id} {...nft} />
         ))}
       </Grid>

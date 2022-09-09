@@ -10,7 +10,17 @@ export const NftLogo = ({ mediaUri }: NftLogoProps) => {
   const [isError, setIsError] = useState(false);
   return (
     <Box roundedTop="lg">
-      {!isVideo ? (
+      {isVideo ? (
+        <video width="100%" height="100%" autoPlay loop muted playsInline style={{ borderRadius: '0.5rem 0.5rem 0 0', objectFit: 'cover' }}>
+          <source
+            src={mediaUri}
+            type="video/mp4"
+            onError={() => {
+              setIsError(true);
+            }}
+          />
+        </video>
+      ) : (
         <Image
           src={mediaUri}
           onError={() => {
@@ -23,18 +33,8 @@ export const NftLogo = ({ mediaUri }: NftLogoProps) => {
           w="100%"
           fallbackSrc="https://via.placeholder.com/300"
         />
-      ) : (
-        <video width="100%" height="100%" autoPlay loop muted playsInline style={{ borderRadius: '0.5rem 0.5rem 0 0', objectFit: 'cover' }}>
-          <source
-            src={mediaUri}
-            type="video/mp4"
-            onError={() => {
-              setIsError(true);
-            }}
-          />
-        </video>
       )}
-      {isError ? <div>Error</div> : null}
+      {isError && <div>Error</div>}
     </Box>
   );
 };

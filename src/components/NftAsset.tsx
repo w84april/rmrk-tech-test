@@ -1,39 +1,25 @@
-import { Flex, Circle, Box, Image, Badge, useColorModeValue, Text, Icon, chakra, Tooltip, AspectRatio, LinkBox, LinkOverlay } from '@chakra-ui/react';
+import { Flex, Box, useColorModeValue, Text, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import { INftAsset, INftMetadata } from '../types';
 import { getGatewayUrl } from '../utils';
-import Error from '../assets/error.png';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import NextLink from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 import { NftLogo } from './NftLogo';
 
 const NftAsset = ({ id, sn, metadata }: INftAsset) => {
-  const getMetadata = (): Promise<INftMetadata> => axios.get(getGatewayUrl(metadata)).then(response => response.data);
-  const { isLoading, data } = useQuery(['nftMetadata', id], getMetadata);
-  const [mediaUri, setMediaUri] = useState('');
-  const [name, setName] = useState('');
-
-  useEffect(() => {
-    if (data?.mediaUri) {
-      setMediaUri(data.mediaUri);
-    }
-    if (data?.name) {
-      setName(data.name);
-    }
-  }, [data?.mediaUri, data?.name]);
+  const { data } = useQuery<INftMetadata>(['nftMetadata', id], () => axios.get(getGatewayUrl(metadata)).then(response => response.data));
 
   return (
     <LinkBox>
       <Flex alignItems="center" justifyContent="center">
         <Box bg={useColorModeValue('white', 'gray.800')} borderWidth="1px" rounded="lg" shadow="lg" position="relative">
-          <NftLogo mediaUri={getGatewayUrl(mediaUri)} />
+          <NftLogo mediaUri={getGatewayUrl(data?.mediaUri)} />
 
           <Box p="4">
             <Flex mt="1" justifyContent="space-between" alignContent="center">
               <Text fontSize="sm" fontWeight="semibold" as="h4" lineHeight="tight" noOfLines={2} maxW={260}>
                 <NextLink href={`/nfts/${id}`} passHref>
-                  <LinkOverlay>{name}</LinkOverlay>
+                  <LinkOverlay>{data?.name}</LinkOverlay>
                 </NextLink>
               </Text>
             </Flex>
