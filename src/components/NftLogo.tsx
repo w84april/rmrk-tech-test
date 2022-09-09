@@ -8,7 +8,6 @@ interface NftLogoProps {
 export const NftLogo = ({ mediaUri }: NftLogoProps) => {
   const [isVideo, setIsVideo] = useState(false);
   const [isError, setIsError] = useState(false);
-  console.log(isError);
   return (
     <Box roundedTop="lg">
       {!isVideo ? (
@@ -29,8 +28,7 @@ export const NftLogo = ({ mediaUri }: NftLogoProps) => {
           <source
             src={mediaUri}
             type="video/mp4"
-            onError={err => {
-              console.log(err);
+            onError={() => {
               setIsError(true);
             }}
           />

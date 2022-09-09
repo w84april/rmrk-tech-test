@@ -20,7 +20,7 @@ const NftAsset = ({ id, sn, metadata }: INftAsset) => {
     setName(data.name);
     setMediaUri(data?.mediaUri);
   }, [data?.mediaUri, data?.name]);
-  console.log(getGatewayUrl(mediaUri));
+
   return (
     <Flex alignItems="center" justifyContent="center">
       <Box bg={useColorModeValue('white', 'gray.800')} borderWidth="1px" rounded="lg" shadow="lg" position="relative">

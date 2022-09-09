@@ -18,12 +18,15 @@ const Filter = () => {
     <Flex gap="20px">
       <Stack direction="row" justifyContent="space-between">
         <Select
-          placeholder="NFTs per page"
           onChange={e => {
             updateNftsPerPage(+e.target.value);
           }}
+          // placeholder="NFTs per page"
           value={nftsPerPage.toString()}
         >
+          <option disabled value="0">
+            NFTs per page
+          </option>
           <option value="10">10</option>
           <option value="20">20</option>
           <option value="50">50</option>
