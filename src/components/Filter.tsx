@@ -21,7 +21,6 @@ const Filter = () => {
           onChange={e => {
             updateNftsPerPage(+e.target.value);
           }}
-          // placeholder="NFTs per page"
           value={nftsPerPage.toString()}
         >
           <option disabled value="0">

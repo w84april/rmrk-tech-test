@@ -19,10 +19,9 @@ const NftAssetsGrid = () => {
       </Grid>
       <Flex justifyContent="center" mt={4}>
         <ReactPaginate
-          pageCount={Math.ceil(totalAssets / storedNftsPerPage)}
+          pageCount={Math.ceil(totalAssets / storedNftsPerPage) || 0}
           pageRangeDisplayed={2}
           marginPagesDisplayed={2}
-          forcePage={page}
           onPageChange={({ selected }) => {
             setPage(selected);
           }}
