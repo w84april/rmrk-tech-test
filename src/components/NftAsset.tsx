@@ -1,7 +1,7 @@
 import { Flex, Box, useColorModeValue, Text, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import { INftAsset, INftMetadata } from '../types';
 import { getGatewayUrl } from '../utils';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import NextLink from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { NftLogo } from './NftLogo';

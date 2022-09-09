@@ -1,4 +1,4 @@
-import { Box, Checkbox, Flex, Select, Stack } from '@chakra-ui/react';
+import { Checkbox, Flex, Select, Stack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useFilterStore } from '../store';
 

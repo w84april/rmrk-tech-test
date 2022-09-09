@@ -1,6 +1,5 @@
 import { Flex, Grid } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useGetPaginatedNfts } from '../hooks/use-get-paginated-nfts';
 import { useFilterStore } from '../store';
