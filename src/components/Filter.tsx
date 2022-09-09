@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useFilterStore } from '../store';
 
 const Filter = () => {
-  const { storedIsForsaleOnly, storedNftsPerPage, updateIsForsaleOnly, updateNftsPerPage } = useFilterStore(state => state);
+  const { storedIsForsaleOnly, storedNftsPerPage, updateIsForsaleOnly, updateNftsPerPage, updateStoredPage } = useFilterStore(state => state);
 
   const [isForsaleOnly, setIsForsaleOnly] = useState(false);
   const [nftsPerPage, setNftsPerPage] = useState(0);
@@ -20,6 +20,7 @@ const Filter = () => {
         <Select
           onChange={e => {
             updateNftsPerPage(+e.target.value);
+            updateStoredPage(0);
           }}
           value={nftsPerPage.toString()}
         >
@@ -33,7 +34,14 @@ const Filter = () => {
       </Stack>
 
       <Stack spacing={5} direction="row">
-        <Checkbox colorScheme="blue" onChange={e => updateIsForsaleOnly(e.target.checked)} isChecked={isForsaleOnly}>
+        <Checkbox
+          colorScheme="blue"
+          onChange={e => {
+            updateIsForsaleOnly(e.target.checked);
+            updateStoredPage(0);
+          }}
+          isChecked={isForsaleOnly}
+        >
           Display forsale only
         </Checkbox>
       </Stack>

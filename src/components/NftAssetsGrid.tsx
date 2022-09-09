@@ -7,13 +7,12 @@ import { useFilterStore } from '../store';
 import NftAsset from './NftAsset';
 
 const NftAssetsGrid = () => {
-  const { storedIsForsaleOnly, storedNftsPerPage } = useFilterStore(state => state);
-  const [page, setPage] = useState(0);
-  const { paginatedNfts, totalAssets } = useGetPaginatedNfts(page, storedNftsPerPage, storedIsForsaleOnly);
+  const { storedPage, storedIsForsaleOnly, storedNftsPerPage, updateStoredPage } = useFilterStore(state => state);
+  const { paginatedNfts, totalAssets } = useGetPaginatedNfts(storedPage, storedNftsPerPage, storedIsForsaleOnly);
 
-  useEffect(() => {
-    setPage(0);
-  }, [storedIsForsaleOnly, storedNftsPerPage]);
+  // useEffect(() => {
+  //   updateStoredPage(0);
+  // }, [storedIsForsaleOnly, storedNftsPerPage, updateStoredPage]);
 
   return (
     <>
@@ -27,8 +26,9 @@ const NftAssetsGrid = () => {
           pageCount={Math.ceil(totalAssets / storedNftsPerPage) || 0}
           pageRangeDisplayed={2}
           marginPagesDisplayed={2}
+          forcePage={storedPage}
           onPageChange={({ selected }) => {
-            setPage(selected);
+            updateStoredPage(selected);
           }}
           containerClassName="paginator"
           previousLabel={<ChevronLeftIcon />}
