@@ -7,16 +7,22 @@ export interface INftAsset {
   metadata: string;
   owner: string;
   sn: string;
+  image?: string;
   transferable: number;
   isComposable: boolean;
   primaryResource: {
     base: boolean;
   };
+  resources?: {
+    id: string;
+    src: string;
+  }[];
 }
 
 export interface INftMetadata {
   description: string;
   name: string;
-  mediaUri: string;
-  thumbnailUri: string;
+  mediaUri?: string;
+  image?: string;
+  thumbnailUri?: string;
 }

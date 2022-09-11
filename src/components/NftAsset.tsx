@@ -6,7 +6,7 @@ import NextLink from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { NftLogo } from './NftLogo';
 
-const NftAsset = ({ id, sn, metadata }: INftAsset) => {
+const NftAsset = ({ id, sn, metadata, image }: INftAsset) => {
   const { data } = useQuery<INftMetadata>(['nftMetadata', id], () => axios.get(getGatewayUrl(metadata)).then(response => response.data));
 
   return (
@@ -22,8 +22,8 @@ const NftAsset = ({ id, sn, metadata }: INftAsset) => {
         h="100%"
         w="100%"
       >
-        <Flex roundedTop="lg" alignItems="center" h="100%" maxH={300}>
-          <NftLogo mediaUri={getGatewayUrl(data?.mediaUri)} />
+        <Flex roundedTop="lg" alignItems="center" justifyContent="center" h="100%" maxH={300}>
+          <NftLogo mediaUri={getGatewayUrl(image || data?.mediaUri || data?.image || data?.thumbnailUri)} />
         </Flex>
 
         <Box p="4">
